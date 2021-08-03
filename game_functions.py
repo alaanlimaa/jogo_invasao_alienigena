@@ -1,6 +1,7 @@
 import sys
 import pygame as pg
 from bullet import Bullet
+from alien import Alien
 
 
 def check_events(config, tela, nave, bullets):
@@ -34,12 +35,12 @@ def check_keyup_events(evento, nave):
         nave.moving_left = False
 
 
-def update_tela(config, tela, nave, alien, bullets):
+def update_tela(config, tela, nave, aliens, bullets):
     tela.fill(config.cor_fundo_tela)  # define a cor de funda da tela
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     nave.blitme()
-    alien.blitme()
+    aliens.blitme()
     pg.display.flip() # Deixa a tela mais recente vísil, sempre criando novas imagens e excluindo a anterior, ilusão de movimentação
 
 
@@ -56,3 +57,22 @@ def fire_bullet(config, tela, nave, bullets):
     if len(bullets) < config.bullets_allowed: # Cria um novo projétil e o adiciona ao grupo de projéteis.
         new_bullet = Bullet(config, tela, nave)
         bullets.add(new_bullet)
+
+
+def create_fleet(config, tela, aliens):
+    """Cria uma frota completa de alienígenas."""
+    alien = Alien(config, tela)
+    alien_width = alien.rect.width
+    avaliable_space_x = config.tela_comprimento - (2 * alien_width)
+    numbers_aliens_x = int(avaliable_space_x / (2 * alien_width))
+
+    # Cria a primeira linha de alienígenas
+    for alien_number in range(numbers_aliens_x):
+        alien = Alien(config, tela)
+        alien.x = (2 * alien_width) + alien_number
+        alien.rect.x = alien.x
+        aliens.add(alien)
+
+
+
+
