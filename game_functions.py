@@ -34,11 +34,12 @@ def check_keyup_events(evento, nave):
         nave.moving_left = False
 
 
-def update_tela(config, tela, nave, bullets):
+def update_tela(config, tela, nave, alien, bullets):
     tela.fill(config.cor_fundo_tela)  # define a cor de funda da tela
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     nave.blitme()
+    alien.blitme()
     pg.display.flip() # Deixa a tela mais recente vísil, sempre criando novas imagens e excluindo a anterior, ilusão de movimentação
 
 
