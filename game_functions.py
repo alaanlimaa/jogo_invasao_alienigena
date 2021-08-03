@@ -22,6 +22,8 @@ def check_keydown_events(evento, config, tela, nave, bullets):
         nave.moving_left = True
     elif evento.key == pg.K_SPACE:
         fire_bullet(config, tela, nave, bullets)
+    elif evento.key == pg.K_q:
+        sys.exit()
 
 
 def check_keyup_events(evento, nave):
